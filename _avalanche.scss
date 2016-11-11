@@ -19,6 +19,8 @@ $av-element-name: 'grid__cell' !default;  // Element name
 $av-modifier-class-chain: '--' !default;  // Chain between block and modifier
 $av-breakpoint-class-chain: '--' !default;  // Chain between width and breakpoint
 
+$av-width-delimiter: if($av-width-class-style == 'fraction', \/, -of-) !default;  //Delimiter between parts of width
+
 $av-enable-responsive:  true !default;
 $av-breakpoints:  (
   "thumb":            "screen and (max-width: 499px)",
@@ -72,13 +74,13 @@ $av-enable-grid-rev:          false !default;
   }
 }
 
-@function avCreateWidthClassName($style, $numerator, $denominator, $breakpoint-alias){
+@function avCreateWidthClassName($delimiter, $numerator, $denominator, $breakpoint-alias){
 
   $class-name: null;
 
-  @if $style == 'fraction' or $style == 'fragment'{
+  @if $delimiter != '' {
     // Set delimiter as slash or text
-    $delimiter: if($style == 'fraction', \/, -of-);
+    
     $class-name: #{$av-width-class-namespace}#{escapeNumerator($numerator, $av-width-class-namespace)}#{$delimiter}#{$denominator}#{$breakpoint-alias};
   } @else{
     @if $av-width-class-namespace == ''{
@@ -120,7 +122,7 @@ $av-enable-grid-rev:          false !default;
     @if ($denominator == 1) {
 
       // Create 1/1 class
-      $class-name: avCreateWidthClassName($av-width-class-style, 1, 1, $breakpoint-alias);
+      $class-name: avCreateWidthClassName($av-width-delimiter, 1, 1, $breakpoint-alias);
       .#{$class-name}{
         width: 100%;
       }
@@ -131,7 +133,7 @@ $av-enable-grid-rev:          false !default;
       @for $numerator from 1 to $denominator{
 
         // Create class name and set width value
-        $class-name: avCreateWidthClassName($av-width-class-style, $numerator,$denominator, $breakpoint-alias);
+        $class-name: avCreateWidthClassName($av-width-delimiter, $numerator,$denominator, $breakpoint-alias);
         $width-value: percentage($numerator / $denominator);
 
         // Is this width already in our utility map?
