@@ -79,8 +79,6 @@ $av-enable-grid-rev:          false !default;
   $class-name: null;
 
   @if $delimiter != '' {
-    // Set delimiter as slash or text
-    
     $class-name: #{$av-width-class-namespace}#{escapeNumerator($numerator, $av-width-class-namespace)}#{$delimiter}#{$denominator}#{$breakpoint-alias};
   } @else{
     @if $av-width-class-namespace == ''{
