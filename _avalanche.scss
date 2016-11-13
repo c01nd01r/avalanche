@@ -234,6 +234,7 @@ $av-enable-grid-rev:          false !default;
   .#{avCreateBlockClassName('middle')}{
     &:before {
       content: '';
+      display: inline-block;
       vertical-align:middle;
       height: 100%;
     }
