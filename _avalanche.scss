@@ -232,6 +232,11 @@ $av-enable-grid-rev:          false !default;
 @if $av-enable-grid-middle{
 
   .#{avCreateBlockClassName('middle')}{
+    &:before {
+      content: '';
+      vertical-align:middle;
+      height: 100%;
+    }
 
     > .#{avCreateElementClassName()}{
       vertical-align: middle;
